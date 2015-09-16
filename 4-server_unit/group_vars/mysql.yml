@@ -1,0 +1,12 @@
+# Copyright FUJITSU LIMITED 2015.
+
+# #### original settings for MySQL initiation
+
+# config for servers. same as watch. it will be used for setting of iptables
+tag_ServerType: mysql
+
+# MySQL username
+ads_username: mysql
+
+# MySQL groupname
+ads_groupname: mysql

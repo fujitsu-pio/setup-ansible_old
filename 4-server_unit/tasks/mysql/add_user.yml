@@ -1,0 +1,9 @@
+# Copyright FUJITSU LIMITED 2015.
+
+- name: グループの追加
+  group: name={{ ads_groupname }} state=present gid=27
+
+- name: ユーザーの追加
+  user: name={{ ads_username }} uid=27 shell=/bin/bash group={{ ads_groupname }} home=/opt/var/lib/{{ ads_username }} comment="MySQL server" createhome=no
+
+

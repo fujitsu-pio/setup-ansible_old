@@ -1,0 +1,8 @@
+# Copyright FUJITSU LIMITED 2015.
+
+- name: 各サーバからのMySQLへログイン可能ユーザの設定
+  shell: mysql -e "GRANT ALL PRIVILEGES ON *.* TO '{{ ads_pcsuser }}'@'{{ item }}' IDENTIFIED BY '{{ ads_pcsuser_password }}';" -u root --password='{{ ads_rootuser_password }}'
+  with_items:
+    - "{{ mysql_slave_address }}"
+    - "{{ ap_server_address }}" 
+  when: ads_rep_role == "master"

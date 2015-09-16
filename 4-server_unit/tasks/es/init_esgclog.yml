@@ -1,0 +1,30 @@
+# Copyright FUJITSU LIMITED 2015.
+
+- name: /fj/dc-esgclog のディレクトリを作成
+  file: "state=directory path=/fj/dc-esgclog owner=root group=root"
+
+- name: /etc/init/esgclog.conf の配備
+  copy: src=./resource/es/etc/init/esgclog.conf dest=/etc/init/esgclog.conf owner=root group=root mode=644
+
+- name: /fj/dc-esgclog/printFullGC.awk の配備
+  copy: src=./resource/es/fj/dc-esgclog/printFullGC.awk dest=/fj/dc-esgclog/printFullGC.awk owner=root group=root mode=744
+
+- name: /fj/dc-esgclog/esGCLog.sh の配備
+  copy: src=./resource/es/fj/dc-esgclog/esGCLog.sh dest=/fj/dc-esgclog/esGCLog.sh owner=root group=root mode=744
+
+- name: /etc/logrotate.d/es-fullgc の配備
+  copy: src=./resource/es/etc/logrotate.d/es-fullgc dest=/etc/logrotate.d/es-fullgc owner=root group=root mode=0644
+
+- name: initctl configuration 起動状態確認
+  shell: "/sbin/initctl list | grep esgclog"
+  register: esgclog_initctl_list
+
+- name: initctl esgclog 停止
+  command: "/sbin/initctl stop esgclog"
+  when: '"esgclog start/running" in esgclog_initctl_list.stdout'
+
+- name: initctl configuration 再読み込み
+  command: "/sbin/initctl reload-configuration"
+
+- name: initctl esgclog 起動
+  command: "/sbin/initctl start esgclog"

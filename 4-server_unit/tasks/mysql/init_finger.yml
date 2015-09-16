@@ -1,0 +1,5 @@
+# Copyright FUJITSU LIMITED 2015.
+
+- name: fingerのインストール
+  yum: name=finger state=latest
+

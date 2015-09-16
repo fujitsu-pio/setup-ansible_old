@@ -1,0 +1,74 @@
+# Copyright FUJITSU LIMITED 2015.
+
+- name: /fj を作成
+  file: state=directory path=/fj owner=root group=root mode=0755
+
+
+#- name: /opt/nfs_piolog/dc-core を作成
+#  file: state=directory path=/opt/nfs_piolog/dc-core owner=root group=root mode=0755
+
+#- name: /opt/nfs_piolog/dc-core/log を作成
+#  file: state=directory path=/opt/nfs_piolog/dc-core/log owner=personium group=personium mode=0755
+
+#- name: /fj/dc-core を作成
+#  file: state=directory path=/fj/dc-core owner=personium group=personium mode=0755
+
+#- name: /fj/dc-core に /opt/nfs_piolog/dc-core/log の symlink を作成
+#  file: state=link src=/opt/nfs_piolog/dc-core/log dest=/fj/dc-core/log owner=personium group=personium mode=0777
+
+#- name: /opt/nfs_piolog/dc-engine を作成
+#  file: state=directory path=/opt/nfs_piolog/dc-engine owner=root group=root mode=0755
+
+#- name: /opt/nfs_piolog/dc-engine/log を作成
+#  file: state=directory path=/opt/nfs_piolog/dc-engine/log owner=personium group=personium mode=0755
+
+#- name: /fj/dc-engine を作成
+#  file: state=directory path=/fj/dc-engine owner=personium group=personium mode=0755
+
+#- name: /fj/dc-engine に /opt/nfs_piolog/dc-engine/log の symlink を作成
+#  file: state=link src=/opt/nfs_piolog/dc-engine/log dest=/fj/dc-engine/log owner=personium group=personium mode=0777
+
+
+#- name: /opt/nfs_piolog/logback を作成
+#  file: state=directory path=/opt/nfs_piolog/logback owner=root group=root mode=0755
+
+#- name: /opt/nfs_piolog/logback/log を作成
+#  file: state=directory path=/opt/nfs_piolog/logback/log owner=personium group=personium mode=0755
+
+- name: /fj/logback を作成
+  file: state=directory path=/fj/logback owner=personium group=personium mode=0755
+
+- name: /fj/logback/log を作成
+  file: state=directory path=/fj/logback/log owner=personium group=personium mode=0755
+
+#- name: /fj/logback に /opt/nfs_piolog/logback/log の symlink を作成
+#  file: state=link src=/opt/nfs_piolog/logback/log dest=/fj/logback/log owner=personium group=personium mode=0777
+
+
+- name: /fjnfs を作成
+  file: state=directory path=/fjnfs owner=root group=root mode=0755
+
+
+- name: /opt/nfs_webdav/dc-core を作成
+  file: state=directory path=/opt/nfs_webdav/dc-core owner=root group=root mode=0755
+
+- name: /opt/nfs_webdav/dc-core/dav を作成
+  file: state=directory path=/opt/nfs_webdav/dc-core/dav owner=personium group=personium mode=0755
+
+- name: /opt/nfs_webdav/dc-core/eventlog を作成
+  file: state=directory path=/opt/nfs_webdav/dc-core/eventlog owner=personium group=personium mode=0755
+
+- name: /opt/nfs_webdav/dc-core/barInstall を作成
+  file: state=directory path=/opt/nfs_webdav/dc-core/barInstall owner=personium group=personium mode=0755
+
+- name: /fjnfs/dc-core を作成
+  file: state=directory path=/fjnfs/dc-core owner=personium group=personium mode=0755
+
+- name: /fjnfs/dc-core に /opt/nfs_webdav/dc-core/dav の symlink を作成
+  file: state=link src=/opt/nfs_webdav/dc-core/dav dest=/fjnfs/dc-core/dav owner=personium group=personium mode=0777
+
+- name: /fjnfs/dc-core に /opt/nfs_webdav/dc-core/eventlog の symlink を作成
+  file: state=link src=/opt/nfs_webdav/dc-core/eventlog dest=/fjnfs/dc-core/eventlog owner=personium group=personium mode=0777
+
+- name: /fjnfs/dc-core に /opt/nfs_webdav/dc-core/barInstall の symlink を作成
+  file: state=link src=/opt/nfs_webdav/dc-core/barInstall dest=/fjnfs/dc-core/barInstall owner=personium group=personium mode=0777

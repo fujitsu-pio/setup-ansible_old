@@ -1,0 +1,9 @@
+# Copyright FUJITSU LIMITED 2015.
+
+- name: tmpフォルダ削除
+  file: path=/tmp/ state=absent
+
+- name: tmpフォルダ作成
+  file: path=/tmp/ state=directory
+
+

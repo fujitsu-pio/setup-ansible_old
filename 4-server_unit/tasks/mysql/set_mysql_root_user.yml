@@ -1,0 +1,28 @@
+# Copyright FUJITSU LIMITED 2015.
+
+- name: 匿名ユーザーの削除
+  shell: mysql -e "DELETE FROM mysql.user WHERE user=''" -u root
+
+- name: rootユーザーへのパスワード設定
+  shell: mysql -e "SET PASSWORD FOR '{{ ads_rootuser }}'@'{{ item }}' = PASSWORD('{{ ads_rootuser_password }}')" -u root
+  with_items:
+    - ::1
+    - "{{ tag_Name }}"
+    - 127.0.0.1
+    - localhost
+  when: ads_rep_role == "master"
+
+- name: my.cnfの更新
+  template:
+    src=./resource/mysql/my_{{ads_rep_role}}_pass.cnf.j2
+    dest=/etc/my.cnf
+    owner={{ ads_username }}
+    group={{ ads_groupname }}
+    mode=0644
+
+- name: MySQLサービスの再起動
+  shell: /etc/init.d/mysql restart
+
+
+
+

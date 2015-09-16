@@ -1,0 +1,30 @@
+# Copyright FUJITSU LIMITED 2015.
+
+
+- name: MySQL-libsの存在確認
+  shell: rpm -qa | grep -i mysql-libs
+  register: result_exist
+  ignore_errors: True
+
+- name: MySQL-libsの削除
+  yum: name=mysql-libs state=absent
+  when: result_exist|success
+
+- name: MySQL-Serverのダウンロード
+  shell: wget http://dev.mysql.com/get/Downloads/MySQL-5.5/MySQL-server-5.5.25a-1.el6.x86_64.rpm/from/http://ftp.jaist.ac.jp/pub/mysql/ -O /tmp/MySQL-shared-compat-5.5.25a-1.linux2.6.x86_64.rpm
+
+- name: MySQL-Clientのダウンロード
+  shell: wget http://dev.mysql.com/get/Downloads/MySQL-5.5/MySQL-client-5.5.25a-1.el6.x86_64.rpm/from/http://ftp.jaist.ac.jp/pub/mysql/ -O /tmp/MySQL-server-5.5.25a-1.el6.x86_64.rpm 
+
+- name: MySQL Shared Compatのダウンロード
+  shell: wget http://dev.mysql.com/get/Downloads/MySQL-5.5/MySQL-shared-compat-5.5.25a-1.linux2.6.x86_64.rpm/from/http://ftp.jaist.ac.jp/pub/mysql/ -O /tmp/MySQL-client-5.5.25a-1.el6.x86_64.rpm 
+
+- name: MySQL Shared Compatのインストール
+  yum: name=/tmp/MySQL-shared-compat-5.5.25a-1.linux2.6.x86_64.rpm state=present
+
+- name: MySQL-Serverのインストール
+  yum: name=/tmp/MySQL-server-5.5.25a-1.el6.x86_64.rpm state=present 
+
+- name: MySQL-Clientのインストール
+  yum: name=/tmp/MySQL-client-5.5.25a-1.el6.x86_64.rpm state=present
+

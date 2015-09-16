@@ -1,0 +1,22 @@
+# Copyright FUJITSU LIMITED 2015.
+
+- name: SELinuxの設定確認
+  command: getenforce
+  ignore_errors: True
+
+- name: SELinuxの設定変更
+  copy: src=./resource/mysql/selinux/config dest=/etc/selinux/config mode=0644
+
+- name: サーバーの再起動
+  shell: sleep 2s && /sbin/reboot
+
+- name: SSH接続を一時的に停止する
+  local_action: wait_for host={{ inventory_hostname }} port=22 state=stopped
+
+- name: サーバーの再起動が終了するまで待機
+  local_action: wait_for host={{ inventory_hostname }} port=22 delay=30
+
+- name: Check status of selinux
+  shell: getenforce
+
+

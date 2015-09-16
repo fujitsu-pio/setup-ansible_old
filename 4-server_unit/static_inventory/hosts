@@ -1,0 +1,252 @@
+############ BastionサーバーのPrivate IP Address ############
+[tag_ServerType_bastion]
+#BastionサーバのプライベートIPを記入
+{Bastion_Private_IP}
+
+############ WebサーバーのPrivate IP Address ############
+[tag_ServerType_web]
+#WebサーバのプライベートIPを記入
+{Web_Private_IP}
+
+
+############ APサーバーのPrivate IP Address ############
+[tag_ServerType_ap]
+#APサーバのプライベートIPを記入
+{AP_Private_IP}
+
+############ ADS_MasterサーバーのPrivate IP Address ############
+[tag_ServerType_ads_master]
+#ADS_MasterサーバのプライベートIPを記入
+{ADS_Master_Private_IP}
+
+############ ADS_SlaveサーバーのPrivate IP Address ############
+[tag_ServerType_ads_slave]
+#ADS_SlaveサーバのプライベートIPを記入
+{ADS_Slave_Private_IP}
+
+############ ESサーバーのPrivate IP Address ############
+[tag_ServerType_es]
+#ESサーバのプライベートIPを記入
+{ES_Private_IP}
+
+############ nfsサーバーのPrivate IP Address ############
+[tag_ServerType_nfs]
+#nfsサーバのプライベートIPを記入
+{NFS_Private_IP}
+
+
+
+############ Webサーバーの設定項目 ############
+[tag_ServerType_web:vars]
+
+## サーバーのホスト名
+tag_Name={Web_Tag_Name}
+
+## /etc/hosts に設定するnfsサーバのプライベートIP
+pcs_nfs={NFS_Private_IP}
+
+## ansibleを実行するユーザー
+ansible_ssh_user={Ansible_Execution_User}
+
+## ansible実行ユーザーがssh公開鍵認証に用いる秘密鍵（絶対パス指定）
+ansible_ssh_private_key_file={SSH_PrivateKey}
+
+## WebサーバーのGlobal IP Address
+web_global_ip={Web_Global_IP}
+
+## ApサーバーのPrivate IP Address
+ap_private_ip={AP_Private_IP}
+
+#### for iptables setting ####
+## ssh接続を許可するbastionサーバーのネットワーク部を記載
+bastion_network_sep={Bastion_Network_Separation}
+#### for iptables setting ####
+
+
+############ APサーバーの設定項目 ############
+[tag_ServerType_ap:vars]
+
+## サーバーのホスト名
+tag_Name={AP_Tag_Name}
+
+## /etc/hosts に設定するnfsサーバのプライベートIP
+pcs_nfs={NFS_Private_IP}
+
+## ansibleを実行するユーザー
+ansible_ssh_user={Ansible_Execution_User}
+
+## ansibleを実行するための秘密鍵
+ansible_ssh_private_key_file={SSH_PrivateKey}
+
+# personium.ioのマスタートークン
+master_token={Master_Token}
+
+## WebサーバーのFQDN
+base_url={Web_FQDN}
+
+## ads(master)情報
+ads_master_host={ADS_Master_Private_IP}
+ads_pcsuser={ADS_User_Name}
+ads_pcsuser_password={ADS_User_Password}
+ads_rootuser={ADS_Root_Name}
+ads_rootuser_password={ADS_Root_Password}
+
+## ElastciSearchサーバのDNS
+es_elb={ES_Private_IP}
+
+#### for iptables setting ####
+## ssh接続を許可するbastionサーバーのネットワーク部を記載
+bastion_network_sep={Bastion_Network_Separation}
+
+############ ADS_Masterサーバーの設定項目 ############
+[tag_ServerType_ads_master:vars]
+
+## サーバーのホスト名
+tag_Name={ADS_Master_Tag_Name}
+
+## ansibleを実行するユーザー
+ansible_ssh_user={Ansible_Execution_User}
+
+## ansibleを実行するための秘密鍵
+ansible_ssh_private_key_file={SSH_PrivateKey}
+
+## サーバーの役割（変更不可）
+ads_rep_role=master
+
+## MySQLへログイン可能とする各サーバの設定(ユーザ:user)
+mysql_slave_address={ADS_Slave_Private_IP}
+ap_server_address={AP_Private_IP}
+
+#### for iptables setting ####
+## ssh接続を許可するbastionサーバーのネットワーク部を記載
+bastion_network_sep={Bastion_Network_Separation}
+
+## elasticsearchにアクセスするapサーバーのアクセスのネットワーク部を記載
+ap_network_sep={AP_Network_Separation}
+
+############ ADS_Slaveサーバーの設定項目 ############
+[tag_ServerType_ads_slave:vars]
+
+## サーバーのホスト名
+tag_Name={ADS_Slave_Tag_Name}
+
+## ansibleを実行するユーザー
+ansible_ssh_user={Ansible_Execution_User}
+
+## ansibleを実行するための秘密鍵
+ansible_ssh_private_key_file={SSH_PrivateKey}
+
+## サーバーの役割（変更不可）
+ads_rep_role=slave
+
+#### for iptables setting ####
+## ssh接続を許可するbastionサーバーのネットワーク部を記載
+bastion_network_sep={Bastion_Network_Separation}
+
+## elasticsearchにアクセスするapサーバーのアクセスのネットワーク部を記載
+ap_network_sep={AP_Network_Separation}
+
+############ ESサーバーの設定項目 ############
+[tag_ServerType_es:vars]
+
+## サーバーのホスト名
+tag_Name={ES_Tag_Name}
+
+## /etc/hosts に設定するnfsサーバのプライベートIP
+pcs_nfs={NFS_Private_IP}
+
+## ESサーバーのPrivate IP Address
+es_private_ip={ES_Private_IP}
+
+## ansibleを実行するユーザー
+ansible_ssh_user={Ansible_Execution_User}
+
+## ansibleを実行するための秘密鍵
+ansible_ssh_private_key_file={SSH_PrivateKey}
+
+#### for iptables setting ####
+## ssh接続を許可するbastionサーバーのネットワーク部を記載
+bastion_network_sep={Bastion_Network_Separation}
+
+## elasticsearchにアクセスするapサーバーのアクセスのネットワーク部を記載
+ap_network_sep={AP_Network_Separation}
+
+############ nfsサーバーの設定項目 ############
+[tag_ServerType_nfs:vars]
+
+## サーバーのホスト名
+tag_Name={nfs_Tag_Name}
+
+## /etc/hosts に設定するnfsサーバのプライベートIP
+pcs_nfs={NFS_Private_IP}
+
+## ansibleを実行するユーザー
+ansible_ssh_user={Ansible_Execution_User}
+
+## ansibleを実行するための秘密鍵
+ansible_ssh_private_key_file={SSH_PrivateKey}
+
+#### for iptables setting ####
+## ssh接続を許可するbastionサーバーのネットワーク部を記載
+bastion_network_sep={Bastion_Network_Separation}
+
+## nfsにアクセスするapサーバーのネットワーク部を記載
+ap_network_sep={AP_Network_Separation}
+
+#### for iptables setting ####
+
+
+############ bastionサーバーの設定項目 ############
+[tag_ServerType_bastion:vars]
+
+## サーバーのホスト名
+tag_Name={Bastion_Tag_Name}
+
+## /etc/hosts に設定するnfsサーバのプライベートIP
+pcs_nfs={NFS_Private_IP}
+
+## ansibleを実行するユーザー
+ansible_ssh_user={Ansible_Execution_User}
+
+## ansibleを実行するための秘密鍵
+ansible_ssh_private_key_file={SSH_PrivateKey}
+
+
+############ ADSサーバーのグループ設定（変更不可） ############
+[ads_group:children]
+tag_ServerType_ads_master
+tag_ServerType_ads_slave
+
+
+############ ADSサーバーグループの設定項目 ############
+[ads_group:vars]
+
+## /etc/hosts に設定するnfsサーバのプライベートIP
+pcs_nfs={NFS_Private_IP}
+
+## mysql(ads)上のユーザーアカウント
+ads_pcsuser={ADS_User_Name}
+
+## mysql(ads)上のパスワード
+ads_pcsuser_password={ADS_User_Password}
+
+## mysql(ads)上のrootユーザーアカウント
+ads_rootuser={ADS_Root_Name}
+
+## mysql(ads)上のrootユーザーパスワード
+ads_rootuser_password={ADS_Root_Password}
+
+# Username for replication
+ads_slave_username={ADS_Repl_Name}
+
+# Password for replication
+ads_slave_password={ADS_Repl_Password}
+
+# Addresses of MySQL(ads) Servers
+ads_master_address={ADS_Master_Private_IP}
+ads_slave_address={ADS_Slave_Private_IP}
+
+# Addresses of Other Servers
+nfs_server_address={NFS_Private_IP}
+es_server_address={ES_Private_IP}
+

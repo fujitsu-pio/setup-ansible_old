@@ -1,0 +1,7 @@
+/fj/dc-core/log/dc-core.log {
+    daily
+    dateext
+    compress
+    missingok
+    copytruncate
+}

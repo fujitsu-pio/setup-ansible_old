@@ -1,0 +1,26 @@
+# Copyright FUJITSU LIMITED 2015.
+
+- include: ./common.yml
+
+- include: ./tasks/common/init_ebs_volume.yml
+  vars:
+    diskname: xvdb
+    mountpoint: /opt/ads_data
+
+- include: ./tasks/common/init_process_account_personium.yml
+
+- include: ./tasks/mysql/add_user.yml
+
+- include: ./tasks/mysql/init_fj-dir.yml
+
+- include: ./tasks/mysql/init_selinux.yml
+- include: ./tasks/mysql/init_finger.yml
+- include: ./tasks/mysql/install_mysql.yml
+- include: ./tasks/mysql/set_mysql.yml
+- include: ./tasks/mysql/set_mysql_replicate.yml
+- include: ./tasks/mysql/set_mysql_root_user.yml
+- include: ./tasks/mysql/set_mysql_other_user.yml
+- include: ./tasks/mysql/delete_tmp.yml
+
+
+

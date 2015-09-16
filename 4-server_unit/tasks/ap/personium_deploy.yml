@@ -1,0 +1,41 @@
+# Copyright FUJITSU LIMITED 2015.
+
+- name: dc-engine/extensions の配備
+  copy: src=./resource/ap/fj/18888/dc-engine/extensions dest=/fj/18888/dc-engine owner=personium group=personium mode=644
+
+- name: secret16の採取
+  command: cat /fj/dc-core/conf/token.key
+  register: secret16
+
+- name: saltの採取
+  command: cat /fj/dc-core/conf/salt.key
+  register: salt
+
+- name: dc-config.properties の配備
+  template: src=./resource/ap/fj/dc-core/conf/18888/dc-config.properties.j2 dest=/fj/dc-core/conf/18888/dc-config.properties owner=root group=root mode=0644
+
+- name: logback-18888.xml の配備
+  copy: src=./resource/ap/opt/logback/logback-18888.xml dest=/opt/logback/logback-18888.xml owner=personium group=personium mode=0644
+
+- name: tomcat サービスの停止
+  service: name=tomcat state=stopped
+
+- name: /opt/tomcat/webapps/dc1-core を削除する
+  file: state=absent path=/opt/tomcat/webapps/dc1-core
+
+- name: /opt/tomcat/webapps/dc1-engine を削除する
+  file: state=absent path=/opt/tomcat/webapps/dc1-engine
+
+- name: dc1-core.war の配備
+  copy: src=./resource/ap/opt/tomcat/webapps/dc1-core.war dest=/opt/tomcat/webapps/dc1-core.war owner=personium group=personium mode=644
+
+- name: dc1-engine.war の配備
+  copy: src=./resource/ap/opt/tomcat/webapps/dc1-engine.war dest=/opt/tomcat/webapps/dc1-engine.war owner=personium group=personium mode=644
+
+- name: dc1-custom.jar の配備
+  copy: src=./resource/ap/opt/tomcat/lib/dc1-custom.jar dest=/opt/tomcat/lib/dc1-custom.jar owner=root group=root mode=644
+
+- name: tomcat サービスの起動
+  service: name=tomcat state=started
+
+

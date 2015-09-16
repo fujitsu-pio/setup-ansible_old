@@ -1,0 +1,59 @@
+# Copyright FUJITSU LIMITED 2015.
+
+
+- name: MySQL-レプリケーションユーザの作成
+  shell: mysql -e "GRANT REPLICATION SLAVE ON *.* TO {{ ads_slave_username }}@{{ ads_slave_address }} IDENTIFIED BY '{{ ads_slave_password }}';"
+  when: ads_rep_role == "master"
+
+- name: MySQL-DB全体のロックを取得（Master)
+  shell: mysql -e "FLUSH TABLES WITH READ LOCK;"
+  when: ads_rep_role == "master"
+
+- name: mysqldump.shの配置
+  copy: src=./resource/mysql/mysqldump.sh dest=/etc/mysqldump.sh mode=755
+
+- name: dumpファイルの作成（Master）
+  shell:
+    mysqldump --user root --password= --all-databases | gzip > /tmp/mysqldump.sql.gz
+  when: ads_rep_role == "master"
+
+
+- name: dumpファイルをコントロールノードへコピー（Master）
+  fetch:
+    src=/tmp/mysqldump.sql.gz
+    dest=/tmp/mysqldump.sql.gz
+    flat=yes
+  when: ads_rep_role == "master"
+
+- name: dumpファイルをslaveへ追加（Slave）
+  copy:
+    src=/tmp/mysqldump.sql.gz
+    dest=/tmp/mysqldump.sql.gz
+  when: ads_rep_role == "slave"
+
+- name: MySQL-pythonのインストール（Slave）
+  yum: name=MySQL-python state=installed
+
+- name: dumpファイルの読み込み（Slave）
+  shell:
+    zcat /tmp/mysqldump.sql.gz | mysql
+  when: ads_rep_role == "slave"
+
+- name: レプリケーションの設定（Slave）
+  shell: mysql -e "CHANGE MASTER TO MASTER_HOST='{{ ads_master_address }}', MASTER_USER='{{ ads_slave_username }}', MASTER_PASSWORD='{{ ads_slave_password }}'"
+  when: ads_rep_role == "slave"
+
+- name: レプリケーションの開始（Slave）
+  shell: mysql -e "start slave;"
+  when: ads_rep_role == "slave"
+
+- name: MySQL-DB全体のロックを解除（Master)
+  shell: mysql -e "UNLOCK TABLES;"
+  when: ads_rep_role == "master"
+
+
+
+
+
+
+
