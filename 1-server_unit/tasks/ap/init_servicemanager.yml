@@ -1,0 +1,21 @@
+# Copyright FUJITSU LIMITED 2015.
+
+- name: /tmp/dc1-init-svcmgr.sh の配備
+  template: src=./resource/ap/tmp/dc1-init-svcmgr.sh.j2 dest=/tmp/dc1-init-svcmgr.sh mode=744
+
+- name: /tmp/dc1-init-svcmgr.sh の実行
+  shell: /bin/sh /tmp/dc1-init-svcmgr.sh > /tmp/dc1-init-svcmgr.log
+  register: init_svcmgr_result
+  failed_when: "init_svcmgr_result.rc != 0"
+
+- name: servicemanagerセルのアカウント情報を取得
+  fetch: src=/tmp/servicemanager_account dest=~/servicemanager_account flat=yes
+
+- name: /tmp/dc1-init-svcmgr.sh の削除
+  file: path=/tmp/dc1-init-svcmgr.sh state=absent
+
+- name: dc1-init-svcmgr.sh の実行ログ削除
+  file: path=/tmp/dc1-init-svcmgr.log state=absent
+
+- name: セルのアカウント情報の削除
+  file: path=/tmp/servicemanager_account state=absent

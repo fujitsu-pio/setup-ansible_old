@@ -69,8 +69,8 @@
 - name: 既存の /opt/tomcat/logs を削除する
   file: state=absent path=/opt/tomcat/logs
 
-- name: /fj/tomcat ディレクトリを作成
-  file: "state=directory path=/fj/tomcat owner=personium group=personium"
+- name: /personium/tomcat ディレクトリを作成
+  file: "state=directory path=/personium/tomcat owner=personium group=personium"
 
 - name: /opt/ap_piolog/tomcat ディレクトリを作成
   file: "state=directory path=/opt/ap_piolog/tomcat owner=root group=root"
@@ -78,11 +78,11 @@
 - name: /opt/ap_piolog/tomcat/logs ディレクトリを作成
   file: "state=directory path=/opt/ap_piolog/tomcat/logs owner=personium group=personium"
 
-- name: /opt/ap_piolog/tomcat/logs に /fj/tomcat/logs の symlink を作成
-  file: state=link src=/opt/ap_piolog/tomcat/logs dest=/fj/tomcat/logs owner=root group=root mode=0777
+- name: /opt/ap_piolog/tomcat/logs に /personium/tomcat/logs の symlink を作成
+  file: state=link src=/opt/ap_piolog/tomcat/logs dest=/personium/tomcat/logs owner=root group=root mode=0777
 
-- name: /fj/tomcat/logs に /opt/tomcat/logs の symlink を作成
-  file: state=link src=/fj/tomcat/logs dest=/opt/tomcat/logs owner=root group=root mode=0777
+- name: /personium/tomcat/logs に /opt/tomcat/logs の symlink を作成
+  file: state=link src=/personium/tomcat/logs dest=/opt/tomcat/logs owner=root group=root mode=0777
 
 - name: /opt/tomcat/conf の所有者をpersoniumに変更
   file: path=/opt/tomcat/conf owner=personium group=personium recurse=yes

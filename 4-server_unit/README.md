@@ -1,4 +1,4 @@
-# Ansible execution process for constructing personium.io unit
+# 4-server unit setup with Ansible
 ---------------------------------------
 
 ## Overview
@@ -8,10 +8,10 @@ The purpose of this document is to explain explecitely how to construct personiu
 
 #### server configuration sample
   Below are the server structure that we configured.
-  
+
 |**Servers**      |   **Role**      |   **MW**                           |  **default memory size** (※1) |   **AWS EC2 specs** (※2)|  
 |:----------------|:----------------|:-----------------------------------|:------------------------------|:-------------------------|
-| Server 1        |  Bastion,Web    | nginx                              |                               |      t2.micro            |   
+| Server 1        |  Bastion,Web    | nginx                              |                               |      t2.micro            |
 | Server 2        |  AP,NFS         | tomcat(1280MB),memcached(1024MB*2) |  3328MB                       |      m3.medium           |
 | Server 3        |  ES, ADS_Master | Elasticsearch(3328MB),MySQL(1536MB)|  4864MB                       |      m3.large            |
 | Server 4        |  ADS_Slave      | MySQL(1536MB)                      |  1536MB                       |     t2.micro             |
@@ -19,37 +19,40 @@ The purpose of this document is to explain explecitely how to construct personiu
 (※1) : Required default memory size. Memory size of each MW configuration file could be modified
 
 (※2) : Tested AWS EC2 instance specs  
-#### File structure 
+
+<img src="4-server_unit.jpg" title="4-server_unit" style="width:70%;height:auto;">
+
+#### File structure
 
 | File name | Contents |
 |---|---|
-| `/init_personium.yml`  |		yml file which should be executed by Ansible-playbook| 
-| `/[group name].yml`	   |		yml file to retrieve the variable of each group and execute its related tasks| 
-| `/Ansible.cfg`         |		Describes the required Settings for Ansible execution. (\*Modification is not required)| 
-| `/static_inventory/`   |		This folder contains all the essential information of different environments| 
-| `/static_inventory/hosts\*#`	          |        Describes information of hosts (IP address, FQDN, group, User name, Private Key, etc.)| 
-| `/group_vars/`	       |		Folder to organize files in order to perform various customization or tuning on servers| 
-| `/group_vars/[group name].yml\*#`  |		   Collections of values for each group, which requires to customize/tune the settings| 
-| `/resource/`		   |	    Folder to organize files which are necessary in task (\*Modification is not required)| 
-|  `/resource/[groue name]/`	   |		Store the resources of each group| 
-|  `/tasks/`			   |    	Folder to organize task| 
-|  `/tasks/[groue name]/`	   |		Store specific task for each group| 
-|  `/handlers/`		   |	    Folder to organize handlers| 
-|  `/handlers/[group name]/`	   |		Store handler for each group| 
-  
-  
+| `/init_personium.yml`  |		yml file which should be executed by Ansible-playbook|
+| `/[group name].yml`	   |		yml file to retrieve the variable of each group and execute its related tasks|
+| `/Ansible.cfg`         |		Describes the required Settings for Ansible execution. (\*Modification is not required)|
+| `/static_inventory/`   |		This folder contains all the essential information of different environments|
+| `/static_inventory/hosts\*#`	          |        Describes information of hosts (IP address, FQDN, group, User name, Private Key, etc.)|
+| `/group_vars/`	       |		Folder to organize files in order to perform various customization or tuning on servers|
+| `/group_vars/[group name].yml\*#`  |		   Collections of values for each group, which requires to customize/tune the settings|
+| `/resource/`		   |	    Folder to organize files which are necessary in task (\*Modification is not required)|
+|  `/resource/[groue name]/`	   |		Store the resources of each group|
+|  `/tasks/`			   |    	Folder to organize task|
+|  `/tasks/[groue name]/`	   |		Store specific task for each group|
+|  `/handlers/`		   |	    Folder to organize handlers|
+|  `/handlers/[group name]/`	   |		Store handler for each group|
+
+
   \*# : Files required to modify according to the environment.
 
-  \*[group name] : web, ap, nfs, es, ads_master, ads_slave, bastion and common. All in all 8 groups.
+  \*[group name] : web, ap, nfs, es, mysql, bastion and common. All in all 7 groups.
   （Here `common` is not the server role. Common group is used to set some general functionalities on all the servers.）
 
 #### File (key) handling Caution: :zap:
 
 The following key file will be generated automatically during the Ansible execution. Please handle these keys carefully.
 
-`/fj/dc-core/conf/salt.key`
+`/personium/dc-core/conf/salt.key`
 
-`/fj/dc-core/conf/token.key`
+`/personium/dc-core/conf/token.key`
 
 ## Initial setup for Ansible :white_check_mark:
 
@@ -64,7 +67,7 @@ The following key file will be generated automatically during the Ansible execut
 #### 1: Setup Ansible parameters
 
 * Edit the following files of Ansible folder
-  * Edit `/static_inventory/hosts` file and set the value of each parameter. 
+  * Edit `/static_inventory/hosts` file and set the value of each parameter.
   * Check `/group_vars/[group name].yml` file. Re-set the parameter value, if server tuning is necessary.  
 \* Please refer to [Ansible Settings Instruction](Ansible_Settings_Instruction.md "") file, for more details about each parameter.
 
@@ -91,7 +94,7 @@ The following key file will be generated automatically during the Ansible execut
 #### 5: Prepare SSL certificate / private key
 
 * Prepare the SSL certificate and private key separately  
-\* Create and use self-signed SSL certificate unless the official SSL certificate is not available. 
+\* Create and use self-signed SSL certificate unless the official SSL certificate is not available.
 Following is the self-signed ssl certificate creation procedure.
 
 ```console
@@ -107,12 +110,12 @@ Following is the self-signed ssl certificate creation procedure.
            Organizational Unit Name (eg, section) []:                   \* Optional ( entered value will be visible in the certificate)
            Common Name (eg, your name or your server's hostname) []:    \* Optional ( entered value will be visible in the certificate)
            Email Address []:                                            \* Optional ( entered value will be visible in the certificate)
-                   
+
                Please enter the following 'extra' attributes
                to be sent with your certificate request
                A challenge password []:
                An optional company name []:
-               
+
     # cp server.key server.key.org
     # openssl rsa -in server.key.org -out server.key
            Enter pass phrase for server.key.org:     \* enter the value of `server.key`
@@ -153,7 +156,7 @@ Note: It is required to add the external disk on the following path
 | AP + NFS server  | 100GB | /dev/xvdc | /opt/nfs_webdav | WebDav, event log |
 
 
-#### 8: Generate SSH key 
+#### 8: Generate SSH key
 
 * Setup the ssh keys (RSA key pair) to access other servers from bastion server as “root” user. Follow the steps below:
 
@@ -171,7 +174,7 @@ Note: It is required to add the external disk on the following path
     Your public key has been saved in /root/.ssh/id_rsa.pub.  (\* press enter)
 ```
 
-The `public key` will be placed in `/home/demo/.ssh/id_rsa.pub` 
+The `public key` will be placed in `/home/demo/.ssh/id_rsa.pub`
 
 The `private key` (identification) will be placed in `/home/demo/.ssh/id_rsa`
 
@@ -193,7 +196,7 @@ The `private key` (identification) will be placed in `/home/demo/.ssh/id_rsa`
 
 * Add the public key of bastion server in **/root/.ssh/authorized_keys** of all target **remote servers**
    * Access to each remote server, and add the  bastion server root public key in /root/.ssh/authorized_keys
-   
+
 - Access to the remote server
 
 ```console
@@ -211,7 +214,7 @@ The `private key` (identification) will be placed in `/home/demo/.ssh/id_rsa`
   2. Press [i] to change the file to edit mode, and you will be able to copy the public key
   3. Paste the public key, copied from bastion server
   4. Press [Esc], then type [:wq!] to save the file
-    
+
 - If the directory and the file are not available on remote servers, then create them first
 
 ```console
@@ -252,7 +255,7 @@ The `private key` (identification) will be placed in `/home/demo/.ssh/id_rsa`
 - Access to Bastion server
     $ su root  (\* switch to the root user)
     # ssh -i ~/.ssh/id_rsa root@[Private IP of remote server]  (\*ssh to remote servers as root user)
-    
+
     # exit (\* Exit from remote server, after confirming the successful access from bastion server)
 ```
 
@@ -273,22 +276,22 @@ The `private key` (identification) will be placed in `/home/demo/.ssh/id_rsa`
 ```console
     # yum install Ansible
     this ok [y/N]:  (\* type [y] and press enter)
-```    
+```
 
 #### 2: Check the Ansible configuration file on client server (Bastion server)
 
 * Access to Bastion server and check the following Ansible setup files, if those are configured properly
 
   1．/hosts file   (\* Static inventory file)
-  \* Check the hosts file if anything is missing   
+  \* Check the hosts file if anything is missing
 
 ```console
-      # cat /root/Ansible/static_inventory/hosts | grep "【"
+      # cat /root/Ansible/static_inventory/hosts | grep "{"
 ```
 
   - If nothing shows, meaning all are configured
 
-  2．/group_vars/[group name].yml file    (\* Group Variable files) 
+  2．/group_vars/[group name].yml file    (\* Group Variable files)
   \* Check if all the yml files under group_vars are modified as required
 
 ```console
@@ -303,7 +306,7 @@ The `private key` (identification) will be placed in `/home/demo/.ssh/id_rsa`
 
 #### 3: Execute Ansible
 
-* Access to the Bastion server and change to the `Ansible` directory 
+* Access to the Bastion server and change to the `Ansible` directory
 
 ```console
     # cd /root/Ansible/
@@ -315,7 +318,7 @@ The `private key` (identification) will be placed in `/home/demo/.ssh/id_rsa`
     # date; Ansible-playbook init_personium.yml ; date
 ```
 
-  \* After few minutes-hours (varies on case by case) Ansible process will be done. (\* Don't kill the process in between) personium.io Unit will be created with the configured FQDN. Also will be accessible from web (ex: https://FQDN) 
+  \* After few minutes-hours (varies on case by case) Ansible process will be done. (\* Don't kill the process in between) personium.io Unit will be created with the configured FQDN. Also will be accessible from web (ex: https://FQDN)
 
 * Confirm if Ansible executed properly
 
@@ -331,7 +334,7 @@ The `private key` (identification) will be placed in `/home/demo/.ssh/id_rsa`
 
 ```
     # /bin/sh pcs_regression.sh https://{{ FQDN of Web server }}
-    [PCS Version(default) RT OK] 
+    [PCS Version(default) RT OK]
 ```
 
 \* reachability testing is done, if it shows the same

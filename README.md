@@ -12,7 +12,7 @@ Although you may construct the personium.io unit without using the setup tool, b
 
 ### Server architecture for personium.io unit
   Personium.io unit construction requires to assign the combination of following 7 roles on a single or multiple interconnected servers properly.
-  
+
 
 | **Role**     | **Usage**        | **definition**                                                                         |
 |:-------------|:-----------------|:---------------------------------------------------------------------------------------|
@@ -40,7 +40,7 @@ If interested, you may try to construct personium.io unit on your local machine 
 
 * Machine environment : **Linux**
 * The number of personium.io unit servers : **1 Server**
-  * Server elements : Bastion, Web, AP, NFS, ES
+  * Server-1 elements : Bastion, Web, AP, ES
 * Setup time : 1 hour
 * Setup tool: [setup-ansible/1-server_unit](https://github.com/personium/setup-ansible/tree/master/1-server_unit "1-server_unit")
 * Note  
@@ -57,8 +57,8 @@ If interested, you may try to construct personium.io unit on your local machine 
 * Setup time :  2 hours
 * Setup tool: [setup-ansible/4-server_unit](https://github.com/personium/setup-ansible/tree/master/4-server_unit "4-server_unit")
 * Note  
-  If you are devoted to personium.io and want to release some marvelous applications with it, you should try this pattern! You will get personium.io unit with 4 servers, which will meet practical performance. 
+  If you are devoted to personium.io and want to release some marvelous applications with it, you should try this pattern! You will get personium.io unit with 4 servers, which will meet practical performance.
 
 
-This document introduced pattern based initial requirements to construct the personium.io unit. Please choose the right pattern that suits your purpose. 
+This document introduced pattern based initial requirements to construct the personium.io unit. Please choose the right pattern that suits your purpose.
 Please go thru with other documents to learn about the process to construct the personium.io unit.

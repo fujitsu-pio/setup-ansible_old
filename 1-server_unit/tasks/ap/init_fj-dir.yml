@@ -1,0 +1,96 @@
+# Copyright FUJITSU LIMITED 2015.
+
+- name: /personium/dc-core を作成
+  file: state=directory path=/personium/dc-core owner=personium group=personium mode=0755
+
+- name: /personium/dc-core/log を作成
+  file: state=directory path=/personium/dc-core/log owner=personium group=personium mode=0755
+
+- name: /personium/dc-core/conf を作成
+  file: state=directory path=/personium/dc-core/conf owner=root group=root mode=0755
+
+- name: /personium/dc-core/conf/18888 を作成
+  file: state=directory path=/personium/dc-core/conf/18888 owner=root group=root mode=0755
+
+- name: /personium/dc-core/conf/28888 を作成
+  file: state=directory path=/personium/dc-core/conf/28888 owner=root group=root mode=0755
+
+- name: /personium/dc-core/conf/38888 を作成
+  file: state=directory path=/personium/dc-core/conf/38888 owner=root group=root mode=0755
+
+- name: /personium/dc-core/conf/48888 を作成
+  file: state=directory path=/personium/dc-core/conf/48888 owner=root group=root mode=0755
+
+- name: /personium/dc-core/ads を作成
+  file: state=directory path=/personium/dc-core/ads owner=personium group=personium mode=0755
+
+
+- name: /personium/dc-engine を作成
+  file: state=directory path=/personium/dc-engine owner=personium group=personium mode=0755
+
+- name: /personium/dc-engine/log を作成
+  file: state=directory path=/personium/dc-engine/log owner=personium group=personium mode=0755
+
+- name: /personium/dc-engine/extensions を作成
+  file: state=directory path=/personium/dc-engine/extensions owner=personium group=personium mode=0755
+
+
+- name: /personium/personium を作成
+  file: state=directory path=/personium/personium owner=personium group=personium mode=0755
+
+- name: /personium/personium/log を作成
+  file: state=directory path=/personium/personium/log owner=personium group=personium mode=0755
+
+
+- name: /personium/18888 を作成
+  file: state=directory path=/personium/18888 owner=personium group=personium mode=0755
+
+- name: /personium/18888/dc-engine を作成
+  file: state=directory path=/personium/18888/dc-engine owner=personium group=personium mode=0755
+
+- name: /personium/18888/dc-engine/extensions を作成
+  file: state=directory path=/personium/18888/dc-engine/extensions owner=personium group=personium mode=0755
+
+- name: /personium/28888 を作成
+  file: state=directory path=/personium/28888 owner=personium group=personium mode=0755
+
+- name: /personium/28888/dc-engine を作成
+  file: state=directory path=/personium/28888/dc-engine owner=personium group=personium mode=0755
+
+- name: /personium/28888/dc-engine/extensions を作成
+  file: state=directory path=/personium/28888/dc-engine/extensions owner=personium group=personium mode=0755
+
+- name: /personium/38888 を作成
+  file: state=directory path=/personium/38888 owner=personium group=personium mode=0755
+
+- name: /personium/38888/dc-engine を作成
+  file: state=directory path=/personium/38888/dc-engine owner=personium group=personium mode=0755
+
+- name: /personium/38888/dc-engine/extensions を作成
+  file: state=directory path=/personium/38888/dc-engine/extensions owner=personium group=personium mode=0755
+
+- name: /personium/48888 を作成
+  file: state=directory path=/personium/48888 owner=personium group=personium mode=0755
+
+- name: /personium/48888/dc-engine を作成
+  file: state=directory path=/personium/48888/dc-engine owner=personium group=personium mode=0755
+
+- name: /personium/48888/dc-engine/extensions を作成
+  file: state=directory path=/personium/48888/dc-engine/extensions owner=personium group=personium mode=0755
+
+
+- name: /personium_nfs を作成
+  file: state=directory path=/personium_nfs owner=root group=root mode=0755
+
+- name: /personium_nfs/dc-core を作成
+  file: state=directory path=/personium_nfs/dc-core owner=personium group=personium mode=0755
+
+- name: /personium_nfs/dc-core/dav を作成
+  file: path=/personium_nfs/dc-core/dav state=directory owner=personium group=personium mode=0777
+
+- name: /personium_nfs/dc-core/eventlog を作成
+  file: path=/personium_nfs/dc-core/eventlog state=directory owner=personium group=personium mode=0777
+
+- name: /personium_nfs/dc-core/barInstall を作成
+  file: path=/personium_nfs/dc-core/barInstall state=directory owner=personium group=personium mode=0777
+

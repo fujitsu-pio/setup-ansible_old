@@ -19,14 +19,14 @@
 #- name: /opt/nfs_piolog/memcached/log を作成
 #  file: state=directory path=/opt/nfs_piolog/memcached/log owner=memcached group=memcached mode=0755
 
-- name: /fj/memcached を作成
-  file: state=directory path=/fj/memcached owner=memcached group=memcached mode=0755
+- name: /personium/memcached を作成
+  file: state=directory path=/personium/memcached owner=memcached group=memcached mode=0755
 
-- name: /fj/memcached/log を作成
-  file: state=directory path=/fj/memcached/log owner=memcached group=memcached mode=0755
+- name: /personium/memcached/log を作成
+  file: state=directory path=/personium/memcached/log owner=memcached group=memcached mode=0755
 
-#- name: /fj/memcached に /opt/nfs_piolog/memcached/log の symlink を作成
-#  file: state=link src=/opt/nfs_piolog/memcached/log dest=/fj/memcached/log owner=memcached group=memcached mode=0777
+#- name: /personium/memcached に /opt/nfs_piolog/memcached/log の symlink を作成
+#  file: state=link src=/opt/nfs_piolog/memcached/log dest=/personium/memcached/log owner=memcached group=memcached mode=0777
 
 
 - name: /var/run/memcached を作成

@@ -18,7 +18,7 @@
 user=root
 #password	= your_password
 port		= 3306
-socket		= /fj/mysql/mysql.sock
+socket		= /personium/mysql/mysql.sock
 
 # Here follows entries for some specific programs
 
@@ -28,7 +28,7 @@ skip-character-set-client-handshake
 character-set-server = utf8mb4
 
 port		= 3306
-socket		= /fj/mysql/mysql.sock
+socket		= /personium/mysql/mysql.sock
 skip-external-locking
 #key_buffer_size = 1792M
 table_open_cache = 512
@@ -125,12 +125,12 @@ server-id	= 1
 # binary logging format - mixed recommended 
 binlog_format=mixed
 
-log-error = /fj/mysql/log/mysql.err
-#log = /fj/mysql/logs/mysql_querry.log
+log-error = /personium/mysql/log/mysql.err
+#log = /personium/mysql/logs/mysql_querry.log
 
-datadir = /fj/mysql/data
+datadir = /personium/mysql/data
 
-tmpdir = /fj/mysql/mysqltmp
+tmpdir = /personium/mysql/mysqltmp
 
 # Uncomment the following if you are using InnoDB tables
 #innodb_data_home_dir = /var/lib/mysql

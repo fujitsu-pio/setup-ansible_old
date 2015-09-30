@@ -1,22 +1,22 @@
 # Copyright FUJITSU LIMITED 2015.
 
-- name: /opt/ads_data/fj を作成
-  file: state=directory path=/opt/ads_data/fj owner=root group=root mode=0755
+- name: /opt/ads_data/personium を作成
+  file: state=directory path=/opt/ads_data/personium owner=root group=root mode=0755
 
-- name: /opt/ads_data/fj/mysqlディレクトリ作成
-  file: path=/opt/ads_data/fj/mysql state=directory owner={{ ads_username }} group={{ ads_groupname }} mode=0777
+- name: /opt/ads_data/personium/mysqlディレクトリ作成
+  file: path=/opt/ads_data/personium/mysql state=directory owner={{ ads_username }} group={{ ads_groupname }} mode=0777
 
-- name: /opt/ads_data/fj/mysql/dataディレクトリ作成
-  file: path=/opt/ads_data/fj/mysql/data state=directory owner={{ ads_username }} group={{ ads_groupname }} mode=0777
+- name: /opt/ads_data/personium/mysql/dataディレクトリ作成
+  file: path=/opt/ads_data/personium/mysql/data state=directory owner={{ ads_username }} group={{ ads_groupname }} mode=0777
 
-- name: /opt/ads_data/fj/mysql/logディレクトリ作成
-  file: path=/opt/ads_data/fj/mysql/log state=directory owner={{ ads_username }} group={{ ads_groupname }} mode=0777
+- name: /opt/ads_data/personium/mysql/logディレクトリ作成
+  file: path=/opt/ads_data/personium/mysql/log state=directory owner={{ ads_username }} group={{ ads_groupname }} mode=0777
 
-- name: /opt/ads_data/fj/mysql/mysqltmpディレクトリ作成
-  file: path=/opt/ads_data/fj/mysql/mysqltmp state=directory owner={{ ads_username }} group={{ ads_groupname }} mode=0777
+- name: /opt/ads_data/personium/mysql/mysqltmpディレクトリ作成
+  file: path=/opt/ads_data/personium/mysql/mysqltmp state=directory owner={{ ads_username }} group={{ ads_groupname }} mode=0777
 
 
-- name: /fj に /opt/ads_data/fj の symlink を作成
-  file: state=link src=/opt/ads_data/fj dest=/fj owner=root group=root mode=0777
+- name: /personium に /opt/ads_data/personium の symlink を作成
+  file: state=link src=/opt/ads_data/personium dest=/personium owner=root group=root mode=0777
 
 

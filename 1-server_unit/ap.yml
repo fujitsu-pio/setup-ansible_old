@@ -1,0 +1,12 @@
+# Copyright FUJITSU LIMITED 2015.
+
+- include: ./common.yml
+- include: ./tasks/common/config_cron.yml
+
+- name: MySQL-Clientインストール
+  yum: name=mysql state=latest
+
+- include: ./tasks/ap/init_fj-dir.yml
+- include: ./tasks/ap/init_tomcat_install.yml
+- include: ./tasks/ap/init_personium_setup.yml
+- include: ./tasks/ap/personium_deploy.yml

@@ -17,7 +17,7 @@ Below are the files where modification is required.
 
 ```yaml
     ansible_ssh_user={Ansible_Execution_User}
-    
+
     # should be changed to
 
     ansible_ssh_user=root
@@ -97,14 +97,17 @@ Below are the files where modification is required.
 
 ```yaml
 {ADS_Master_Private_IP}
-# -> Specify the private IP of ADS_Master server 
+# -> Specify the private IP of ADS_Master server
 # EX: {ADS_Master_Private_IP}->172.31.3.80
 
 {ADS_Master_Tag_Name}
 # -> Specify the host name for ADS_Master server
 # EX: {ADS_Master_Tag_Name}->test-mysql
+```
 
-# ADS_Slave server
+#### ADS_Slave server
+
+```yaml
 {ADS_Slave_Private_IP}
 # -> Specify the private IP of ADS_Slave server
 # EX: {ADS_Slave_Private_IP}->172.31.4.5
@@ -112,8 +115,11 @@ Below are the files where modification is required.
 {ADS_Slave_Tag_Name}
 # -> Specify the host name for ADS_Slave server
 # EX: {ADS_Slave_Tag_Name}->test-slave
+```
 
-# ADS common setup
+#### ADS common setup
+
+```yaml
 {ADS_User_Name}
 # -> Set the general user account name for mysql(ads)
 # EX: {ADS_User_Name}->user
@@ -137,22 +143,6 @@ Below are the files where modification is required.
 {ADS_Repl_Password}
 # -> Assign the password for the replication account of mysql(ads)
 # EX: {ADS_Repl_Password}->repl
-```
-
-#### Backup server
-
-```yaml
-{Backup_Private_IP}
-# -> Set the private IP for Backup server 
-# EX: {Backup_Private_IP}->172.31.4.5
-
-{Buckup_Tag_Name}
-# -> Specify the host name for Backup server
-# EX: {Buckup_Tag_Name}->test-slave-backup
-
-{Buckup_Network_Separation}
-# -> Specify the network category for Backup server
-# EX: {Buckup_Network_Separation}->172.31.4.0/24
 ```
 
 #### ES server
@@ -190,7 +180,7 @@ Below are the files where modification is required.
   tag_ServerType: web
 
   nginx_version: 1.7.6
-  
+
   nginx_hm_version: 0.25
 ```
 
@@ -200,25 +190,25 @@ Below are the files where modification is required.
   tag_ServerType: ap
 
   tomcat_version: 8.0.14
-  
+
   tomcat_xms: 1024m
-  
+
   tomcat_xmx: 1024m
-  
+
   tomcat_metaspace_size: 256m
-  
+
   tomcat_max_metaspace_size: 256m
-  
+
   commons_daemon_version : 1.0.15
 
   lock_host: pcs-nfs
-  
+
   lock_port: 11211
-  
+
   cache_host: pcs-nfs
-  
+
   cache_port: 11212
-  
+
   cache_manager: memcached
 ```
 

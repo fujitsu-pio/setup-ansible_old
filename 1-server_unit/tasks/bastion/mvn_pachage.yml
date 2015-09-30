@@ -1,0 +1,15 @@
+# Copyright FUJITSU LIMITED 2015.
+
+- name: build module
+  command: /opt/apache-maven-3.2.5/bin/mvn package
+  args:
+    chdir: /tmp/io/{{ build_mod }}/
+    creates: /root/ansible/resource/ap/opt/tomcat/webapps/dc1-{{ build_mod }}.war
+  environment:
+    JAVA_HOME: /opt/jdk
+
+- name: move module
+  command: mv /tmp/io/{{ build_mod }}/target/dc1-{{ build_mod }}.war /root/ansible/resource/ap/opt/tomcat/webapps/dc1-{{ build_mod }}.war
+  args:
+    creates: /root/ansible/resource/ap/opt/tomcat/webapps/dc1-{{ build_mod }}.war
+
