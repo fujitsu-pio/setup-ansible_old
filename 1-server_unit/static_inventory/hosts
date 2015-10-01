@@ -38,6 +38,6 @@ ansible_ssh_private_key_file={SSH_PrivateKey}
 master_token={Master_Token}
 
 ## WebサーバーのFQDN
-base_url={Web_FQDN}
+base_url={PIO_FQDN}
 
 
