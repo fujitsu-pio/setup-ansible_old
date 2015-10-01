@@ -36,7 +36,7 @@ If interested, you may try to construct personium.io unit on your local machine 
 
 * Please refer to setup-vagrant: https://github.com/personium/setup-vagrant/
 
-#### Pattern-2 : Development, Verification ( will be available soon)
+#### Pattern-2 : Development, Verification
 
 * Machine environment : **Linux**
 * The number of personium.io unit servers : **1 Server**
