@@ -1,7 +1,7 @@
 # Copyright FUJITSU LIMITED 2015.
 
 - name: build module
-  command: /opt/apache-maven-3.2.5/bin/mvn package
+  command: /opt/apache-maven-3.2.5/bin/mvn package -DskipTests=true
   args:
     chdir: /tmp/io/{{ build_mod }}/
     creates: /root/ansible/resource/ap/opt/tomcat/webapps/dc1-{{ build_mod }}.war
