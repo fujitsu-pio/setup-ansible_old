@@ -148,6 +148,9 @@ tmpdir = /personium/mysql/mysqltmp
 
 user=mysql
 
+key_cache_block_size = 4096
+myisam-block-size = 4096
+
 [mysqldump]
 quick
 max_allowed_packet = 16M
